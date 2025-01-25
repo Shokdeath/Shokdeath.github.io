@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Button</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #add8e6;
+            overflow: hidden;
+            position: relative;
+        }
+        #label {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            padding: 5px 10px;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: #ffffff;
+        }
+        #counter {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding: 5px 10px;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+        button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            color: #000;
+            background-color: #d3d3d3;
+            border: 2px solid black;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px #a9a9a9;
+            transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+        }
+        button:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px #a9a9a9;
+        }
+        .popup {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: bold;
+            color: black;
+            border: 2px solid black;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #ffffff;
+            animation: fadeOut 2.5s forwards;
+        }
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        footer {
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="height: 100px;">КЛИКЕР СТОНОВ</h1>
+    <div id="label">Количество стонов:</div>
+    <div id="counter">0</div>
+    <button id="button">Нажми на меня!</button>
+
+    <footer>Сделано Shokdeath</footer>
+
+    <script>
+        const button = document.getElementById('button');
+        const counter = document.getElementById('counter');
+        const phrases = ["Ахх!", "Мм..", "Ох..", "Аххх. . .", "Ах!", "Ой!", "Мьх.."];
+        let count = 0;
+        button.addEventListener('click', () => {
+            count++;
+            counter.textContent = count;
+            createPopup();
+        });
+        function createPopup() {
+            const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+            const popup = document.createElement('div');
+            popup.textContent = phrase;
+            popup.className = 'popup';
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+            const randomAngle = Math.random() * 30 - 15; 
+            popup.style.left = `${randomX}px`;
+            popup.style.top = `${randomY}px`;
+            popup.style.transform = `rotate(${randomAngle}deg)`;
+            document.body.appendChild(popup);
+            setTimeout(() => {
+                popup.remove();
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
